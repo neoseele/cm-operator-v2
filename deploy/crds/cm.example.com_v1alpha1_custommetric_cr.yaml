@@ -1,0 +1,7 @@
+apiVersion: cm.example.com/v1alpha1
+kind: CustomMetric
+metadata:
+  name: example-custommetric
+spec:
+  # Add fields here
+  size: 3
