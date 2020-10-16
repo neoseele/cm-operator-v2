@@ -16,10 +16,17 @@ spec:
       containers:
         - name: cm-operator
           # Replace this with the built image name
-          image: REPLACE_IMAGE
+          image: neoseele/cm-operator:v0.0.1
           command:
           - cm-operator
           imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: 300m
+              memory: 300Mi
+            requests:
+              cpu: 300m
+              memory: 300Mi
           env:
             - name: WATCH_NAMESPACE
               valueFrom:

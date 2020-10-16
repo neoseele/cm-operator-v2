@@ -30,9 +30,35 @@ spec:
           type: object
         spec:
           description: CustomMetricSpec defines the desired state of CustomMetric
+          properties:
+            cluster:
+              type: string
+            location:
+              type: string
+            metrics:
+              items:
+                type: string
+              type: array
+            project:
+              type: string
+          required:
+          - cluster
+          - location
+          - metrics
+          - project
           type: object
         status:
           description: CustomMetricStatus defines the observed state of CustomMetric
+          properties:
+            availableReplicas:
+              description: 'INSERT ADDITIONAL STATUS FIELD - define observed state
+                of cluster Important: Run "operator-sdk generate k8s" to regenerate
+                code after modifying this file Add custom validation using kubebuilder
+                tags: https://book-v1.book.kubebuilder.io/beyond_basics/generating_crd.html'
+              format: int32
+              type: integer
+          required:
+          - availableReplicas
           type: object
       type: object
   version: v1alpha1

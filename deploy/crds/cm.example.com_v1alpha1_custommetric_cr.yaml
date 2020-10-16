@@ -3,5 +3,10 @@ kind: CustomMetric
 metadata:
   name: example-custommetric
 spec:
-  # Add fields here
-  size: 3
+  project: nmiu-play
+  cluster: foo2
+  location: us-central1-a
+  metrics:
+    - cilium_.*
+    - container_network_transmit_packets_total
+    - container_network_receive_packets_total
