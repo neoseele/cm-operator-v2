@@ -6,7 +6,6 @@ IMAGE := $(shell docker image inspect $(REPO_NAME)/$(IMAGE_NAME):$(IMAGE_TAG) &>
 
 .PHONY: build
 build:
-
 ifeq ($(IMAGE),missing)
 	@echo "building image [$(REPO_NAME)/$(IMAGE_NAME):$(IMAGE_TAG)] ..."
 	@operator-sdk build $(REPO_NAME)/$(IMAGE_NAME):$(IMAGE_TAG)
@@ -31,7 +30,7 @@ deploy-operator:
 	@kubectl apply -f deploy/operator.yaml
 
 teardown-operator:
-	-@kubectl apdeleteply -f deploy/operator.yaml
+	-@kubectl delete -f deploy/operator.yaml
 	-@kubectl delete -f deploy/role_binding.yaml
 	-@kubectl delete -f deploy/role.yaml
 	-@kubectl delete -f deploy/service_account.yaml

@@ -5,7 +5,7 @@ ENV OPERATOR=/usr/local/bin/cm-operator \
     USER_NAME=cm-operator
 
 # install operator binary
-COPY build/_output/bin/cm-operator ${OPERATOR}
+COPY build/_output/bin/cm-operator-v2 ${OPERATOR}
 
 COPY build/bin /usr/local/bin
 RUN  /usr/local/bin/user_setup
