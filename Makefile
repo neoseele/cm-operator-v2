@@ -23,22 +23,26 @@ clean:
 	@echo "removing images ..."
 	-@docker rmi $(REPO_NAME)/$(IMAGE_NAME):$(IMAGE_TAG)
 
-deploy-operator:
+# deploy
+crd:
+	@kubectl apply -f deploy/crds/cm.example.com_custommetrics_crd.yaml
+
+operator: crd
 	@kubectl apply -f deploy/service_account.yaml
-	@kubectl apply -f deploy/role.yaml
 	@kubectl apply -f deploy/role_binding.yaml
 	@kubectl apply -f deploy/operator.yaml
 
-teardown-operator:
+cr: operator
+	@kubectl apply -f deploy/crds/cm.example.com_v1alpha1_custommetric_cr.yaml
+
+# teardown
+teardown-crd: teardown-operator
+	-@kubectl delete -f deploy/crds/cm.example.com_custommetrics_crd.yaml
+
+teardown-operator: teardown-cr
 	-@kubectl delete -f deploy/operator.yaml
 	-@kubectl delete -f deploy/role_binding.yaml
-	-@kubectl delete -f deploy/role.yaml
 	-@kubectl delete -f deploy/service_account.yaml
-
-deploy-cr:
-	@kubectl apply -f deploy/crds/cm.example.com_custommetrics_crd.yaml
-	@kubectl apply -f deploy/crds/cm.example.com_v1alpha1_custommetric_cr.yaml
 
 teardown-cr:
 	-@kubectl delete -f deploy/crds/cm.example.com_v1alpha1_custommetric_cr.yaml
-	-@kubectl delete -f deploy/crds/cm.example.com_custommetrics_crd.yaml

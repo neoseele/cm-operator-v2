@@ -168,7 +168,7 @@ func (r *ReconcileCustomMetric) reconcileClusterRoleBinding(cr *cmv1alpha1.Custo
 	// }
 
 	// Check if this object already exists
-	found := &rbacv1.ClusterRole{}
+	found := &rbacv1.ClusterRoleBinding{}
 	err := r.client.Get(context.TODO(), client.ObjectKey{Name: clusterRoleBinding.Name}, found)
 	if err != nil && errors.IsNotFound(err) {
 		reqLogger.Info("Creating a new clusterRoleBinding", "clusterRoleBinding.Name", clusterRoleBinding.Name)
@@ -347,16 +347,16 @@ scrape_configs:
     - role: pod
 
   relabel_configs:
-    - source_labels: [__meta_kubernetes_pod_annotation_cmoperator_io_scrape]
+    - source_labels: [__meta_kubernetes_pod_annotation_cm_example_com_scrape]
       action: keep
       regex: true
     - source_labels:
-      - __meta_kubernetes_pod_annotationpresent_cmoperator_io_path
-      - __meta_kubernetes_pod_annotation_cmoperator_io_path
+      - __meta_kubernetes_pod_annotationpresent_cm_example_com_path
+      - __meta_kubernetes_pod_annotation_cm_example_com_path
       action: replace
       target_label: __metrics_path__
       regex: true;(.+)
-    - source_labels: [__address__, __meta_kubernetes_pod_annotation_cmoperator_io_port]
+    - source_labels: [__address__, __meta_kubernetes_pod_annotation_cm_example_com_port]
       action: replace
       regex: ([^:]+)(?::\d+)?;(\d+)
       replacement: $1:$2
@@ -378,7 +378,7 @@ scrape_configs:
     - role: node
 
   relabel_configs:
-    - source_labels: [__meta_kubernetes_node_annotation_cmoperator_io_scrape]
+    - source_labels: [__meta_kubernetes_node_annotation_cm_example_com_scrape]
       action: keep
       regex: true
     - source_labels: [__address__]

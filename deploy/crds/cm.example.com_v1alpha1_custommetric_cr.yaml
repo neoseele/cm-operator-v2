@@ -1,7 +1,7 @@
 apiVersion: cm.example.com/v1alpha1
 kind: CustomMetric
 metadata:
-  name: example-custommetric
+  name: cm
 spec:
   project: nmiu-gke
   cluster: ebpf
